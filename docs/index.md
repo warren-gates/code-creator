@@ -57,7 +57,7 @@ and the following
 
 | Source | variable name |
 | --- | --- |
-| reference to current project | project |
+| reference to current [project][project] | project |
 | map of environment variables | env |
 | [Date tool][date] | date |
 | [Math tool][math] | math |
