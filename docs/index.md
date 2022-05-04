@@ -105,7 +105,7 @@ Additional velocity settings can be specified under File -> Settings -> Tools ->
 resource.loader = file
 file.resource.loader.description = Velocity File Resource Loader
 file.resource.loader.class = org.apache.velocity.runtime.resource.loader.FileResourceLoader
-file.resource.loader.path = C:/devtools/velocity
+file.resource.loader.path = /path/to/your/template/directory
 file.resource.loader.cache = false
 file.resource.loader.modificationCheckInterval = 0
 ```
