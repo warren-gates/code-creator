@@ -1,9 +1,9 @@
 ## codeCreator documentation
 
-[codeCreator](https://plugins.jetbrains.com/plugin/19097-codecreator) is a general purpose code generator plugin for JetBrains [IntelliJ IDEA][intellij] and [Android Studio][androidStudio] IDEs. It allows for the creation of a code generation task that has one or more [sources](#sources) that can be used in one or more [templates](#templates). One example would be to create multiple Thymeleaf files from a Java class.
+[codeCreator](https://plugins.jetbrains.com/plugin/19097-codecreator) is a general purpose code generator plugin for JetBrains [IntelliJ IDEA][intellij] and [Android Studio][androidStudio] IDEs. It allows for the creation of a code generation task that has one or more [sources](#velocity-context-sources-sources) that can be used in one or more [templates](#velocity-template-sources). One example would be to create multiple Thymeleaf files from a Java class.
 
 ### Current Features
-#### Velocity Context Sources {#sources}
+#### Velocity Context Sources
 - A model of the currently open Java or Kotlin class file
 - A model of a selected Java or Kotlin class file
 - A reference to the currently open [project][project] in the IDE
@@ -11,7 +11,7 @@
 - The tools provided by [Velocity Generic Tools][velocityTools]
 - The predefined [variables][templateVariables] provided for IntelliJ's File and Code Templates
 
-#### Velocity Template Sources {#templates}
+#### Velocity Template Sources
 - String templates added through codeCreator's settings page
 - Templates from files
 
@@ -32,7 +32,7 @@ Switch to the Templates tab and add a new Template using the '+' button. Current
 
 String Templates allow you to set a Name, Template text, and Output. For String Templates the Name is only used for display in the Templates list. The Template text box takes your Velocity template text, and Output specifies the desired output target.
 
-To use a Velocity Template you must configure at least one additional ResourceLoader in the codeCreator Properties page under File -> Settings -> Tools -> codeCreator. See [below][#velocitySettings] for more information. Once an additional ResourceLoader is configured you can set Resource Name and Output. Resource Name must match an existing resource that your additional ResourceLoader can find, such as a file name for a configured FileResourceLoader.
+To use a Velocity Template you must configure at least one additional ResourceLoader in the codeCreator Properties page under File -> Settings -> Tools -> codeCreator. See [below][#velocity-settings] for more information. Once an additional ResourceLoader is configured you can set Resource Name and Output. Resource Name must match an existing resource that your additional ResourceLoader can find, such as a file name for a configured FileResourceLoader.
 
 #### Running Tasks
 Tasks are added to and are run from the IntelliJ/Android Studio Generate... command which is accessed from Code -> Generate... or by hitting Alt-Insert.
@@ -50,7 +50,7 @@ This is the open java or kotlin file with focus when triggering the Generate... 
 This displays a prompt so other project or library class files can be selected.
 
 ##### Other Context Sources
-As noted [above][#sources], the following additional sources are available in your Velocity templates
+As noted [above][#velocity-context-sources-sources], the following additional sources are available in your Velocity templates
 
 The predefined [variables][templateVariables] provided for IntelliJ's File and Code Templates
 and the following
@@ -78,7 +78,7 @@ and the following
 Stores the Velocity template text directly
 
 ##### Velocity Template
-Refers to an external template resource such as a file. Requires that an additional ResourceLoader be [configured][#velocitySettings].
+Refers to an external template resource such as a file. Requires that an additional ResourceLoader be [configured][#velocity-settings].
 
 #### Output
 ##### Clipboard
@@ -88,7 +88,7 @@ Template output is copied to clipboard.
 A file selection prompt is display so output can be saved to a file.
 
 ##### File Name Template
-Allows a file path to be defined as a Velocity template using any of the Sources available, including Task Sources and the [sources][#sources] listed above.  As an example, consider a template that creates a Thymeleaf html page for a specified Java class. Assuming a class named Person with a Source Variable Name of 'class0' in a project located at '/home/warren/myprojects/webproject', the following File Name Template
+Allows a file path to be defined as a Velocity template using any of the Sources available, including Task Sources and the [sources][#velocity-context-sources-sources] listed above.  As an example, consider a template that creates a Thymeleaf html page for a specified Java class. Assuming a class named Person with a Source Variable Name of 'class0' in a project located at '/home/warren/myprojects/webproject', the following File Name Template
 ```velocity
 $project.basePath/src/resources/templates/$class0.name/create.html
 ```
@@ -99,7 +99,7 @@ would give an output path of
 
 File Name Templates has a selection how to handle existing files: Prompt for new name, Overwrite existing file, or Cancel operation. Note that currently Templates are processed sequentially, so it is possible when multiple Templates are used with File Name Templates output with the Cancel option that the first Template processed may save successfully while a subsequent Template may cancel due to an existing file.
 
-#### Velocity Settings {#velocitySettings}
+#### Velocity Settings
 Additional velocity settings can be specified under File -> Settings -> Tools -> codeCreator using property file syntax. This allows you to add additional ResourceLoaders and specify other Velocity runtime configuration. See the Velocity [reference][velocityConfiguration] for specifics. An example of adding a FileResourceLoader would be
 ```
 resource.loader = file
