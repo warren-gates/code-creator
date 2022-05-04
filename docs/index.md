@@ -1,37 +1,49 @@
-## Welcome to GitHub Pages
+## codeCreator documentation
 
-You can use the [editor on GitHub](https://github.com/warren-gates/code-creator/edit/main/docs/index.md) to maintain and preview the content for your website in Markdown files.
+[codeCreator](https://plugins.jetbrains.com/plugin/19097-codecreator) is a general purpose code generator plugin for JetBrains [IntelliJ IDEA][intellij] and [Android Studio][androidStudio] development tools. It allows the creation of a code generation task that allows for one or more [sources](#sources) that can be used in one or more [templates](#templates). One example would be to create multiple Thymeleaf files from a Java class.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+#### Current Features
+##### Velocity Context Sources {#sources}
+- A model of the currently open Java or Kotlin class file
+- A model of a selected Java or Kotlin class file
+- A reference to the currently open [project][project] in the IDE
+- A reference to a map of current envronment variables retrieved from Java's ```System.getenv()```
+- The tools provided by [Velocity Generic Tools][velocityTools]
+- The predefined [variables][templateVariables] provided for IntelliJ's File and Code Templates
 
-### Markdown
+##### Velocity Template Sources {#templates}
+- String templates added through codeCreator's settings page
+- Templates from files
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+##### Output Targets
+- File(s), either by prompting for a file name or by using a template generated file name/path
+- The Clipboard
 
-```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
+#### Use
 
-- Bulleted
-- List
+#### Reference
+##### Velocity
 
-1. Numbered
-2. List
+##### Context Sources
 
-**Bold** and _Italic_ and `Code` text
+#### Roadmap
+##### Additional Velocity Context Sources
+- [Database metadata][databaseMetadata]
+- Other files such as xml, json, csv
+- Value(s) collected from a user prompt
 
-[Link](url) and ![Image](src)
-```
+##### Additional Velocity Template Sources
+- Built in IntelliJ templates
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+##### Additional Output Targes
+- Current Java/Kotlin file
 
-### Jekyll Themes
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/warren-gates/code-creator/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+[intellij]: https://www.jetbrains.com/idea/
+[androidStudio]: https://developer.android.com/studio/
+[project]: https://github.com/JetBrains/intellij-community/blob/3a43e28a7925ba02ab4d8bd8131a22c0d8a54dfd/platform/core-api/src/com/intellij/openapi/project/Project.java
+[velocityTools]: https://velocity.apache.org/tools/1.4/generic/index.html
+[templateVariables]: https://www.jetbrains.com/help/idea/file-template-variables.html
+[databaseMetadata]: https://github.com/warren-gates/better-metadata
