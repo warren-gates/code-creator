@@ -65,7 +65,7 @@ and the following
 | [Render tool][render] | render |
 | [Escape tool][esc] | esc |
 | [Resource tool][text] | text |
-| [Alternator tool | alternator |
+| Alternator tool | alternator |
 | [Value Parser][parser] | parser |
 | [List tool][list] | list |
 | [Sort tool][sorter] | sorter |
