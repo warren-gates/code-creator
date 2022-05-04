@@ -1,6 +1,6 @@
 ## codeCreator documentation
 
-[codeCreator](https://plugins.jetbrains.com/plugin/19097-codecreator) is a general purpose code generator plugin for JetBrains [IntelliJ IDEA][intellij] and [Android Studio][androidStudio] IDEs. It allows for the creation of a code generation task that has one or more [sources](#velocity-context-sources-sources) that can be used in one or more [templates](#velocity-template-sources). One example would be to create multiple Thymeleaf files from a Java class.
+[codeCreator](https://plugins.jetbrains.com/plugin/19097-codecreator) is a general purpose code generator plugin for JetBrains [IntelliJ IDEA][intellij] and [Android Studio][androidStudio] IDEs. It allows for the creation of a code generation task that has one or more [sources](#velocity-context-sources) that can be used in one or more [templates](#velocity-template-sources). One example would be to create multiple Thymeleaf files from a Java class.
 
 ### Current Features
 #### Velocity Context Sources
@@ -50,7 +50,7 @@ This is the open java or kotlin file with focus when triggering the Generate... 
 This displays a prompt so other project or library class files can be selected.
 
 ##### Other Context Sources
-As noted [above][#velocity-context-sources-sources], the following additional sources are available in your Velocity templates
+As noted [above][#velocity-context-sources], the following additional sources are available in your Velocity templates
 
 The predefined [variables][templateVariables] provided for IntelliJ's File and Code Templates
 and the following
@@ -88,7 +88,7 @@ Template output is copied to clipboard.
 A file selection prompt is display so output can be saved to a file.
 
 ##### File Name Template
-Allows a file path to be defined as a Velocity template using any of the Sources available, including Task Sources and the [sources][#velocity-context-sources-sources] listed above.  As an example, consider a template that creates a Thymeleaf html page for a specified Java class. Assuming a class named Person with a Source Variable Name of 'class0' in a project located at '/home/warren/myprojects/webproject', the following File Name Template
+Allows a file path to be defined as a Velocity template using any of the Sources available, including Task Sources and the [sources][#velocity-context-sources] listed above.  As an example, consider a template that creates a Thymeleaf html page for a specified Java class. Assuming a class named Person with a Source Variable Name of 'class0' in a project located at '/home/warren/myprojects/webproject', the following File Name Template
 ```velocity
 $project.basePath/src/resources/templates/$class0.name/create.html
 ```
