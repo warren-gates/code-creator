@@ -1,6 +1,6 @@
 ## codeCreator documentation
 
-[codeCreator](https://plugins.jetbrains.com/plugin/19097-codecreator) is a general purpose code generator plugin for JetBrains [IntelliJ IDEA][intellij] and [Android Studio][androidStudio] development tools. It allows the creation of a code generation task that allows for one or more [sources](#sources) that can be used in one or more [templates](#templates). One example would be to create multiple Thymeleaf files from a Java class.
+[codeCreator](https://plugins.jetbrains.com/plugin/19097-codecreator) is a general purpose code generator plugin for JetBrains [IntelliJ IDEA][intellij] and [Android Studio][androidStudio] IDEs. It allows the creation of a code generation task that allows for one or more [sources](#sources) that can be used in one or more [templates](#templates). One example would be to create multiple Thymeleaf files from a Java class.
 
 #### Current Features
 ##### Velocity Context Sources {#sources}
