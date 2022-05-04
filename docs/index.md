@@ -132,7 +132,7 @@ codeCreator uses the Velocity library included with IntelliJ/Android Studio, whi
 [project]: https://github.com/JetBrains/intellij-community/blob/3a43e28a7925ba02ab4d8bd8131a22c0d8a54dfd/platform/core-api/src/com/intellij/openapi/project/Project.java
 [velocityTools]: https://velocity.apache.org/tools/1.4/generic/index.html
 [templateVariables]: https://www.jetbrains.com/help/idea/file-template-variables.html
-[databaseMetadata]: https://github.com/warren-gates/better-metadata
+[databaseMetadata]: https://warren-gates.github.io/better-metadata/
 [velocityVariableNaming]: https://velocity.apache.org/engine/1.7/user-guide.html#variables
 [velocityTemplateReference]: https://velocity.apache.org/engine/1.7/developer-guide.html#velocity-configuration-keys-and-values
 [velocityConfiguration]: https://velocity.apache.org/engine/1.7/developer-guide.html#velocity-configuration-keys-and-values
