@@ -1,9 +1,9 @@
-//[codeCreator Jvm Class Source model](index.md)
+//[codeCreator](index.md)
 
-# codeCreator Jvm Class Source model
+# codeCreator
 
 ## Packages
 
 | Name |
 |---|
-| [dev.warrengates.codecreator.source.jvmclass](code-creator -jvm -class -source model/dev.warrengates.codecreator.source.jvmclass/index.md) |
+| [dev.warrengates.codecreator.source.jvmclass](code-creator/dev.warrengates.codecreator.source.jvmclass/index.md) |
