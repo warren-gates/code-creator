@@ -4,7 +4,7 @@
 
 ### Current Features
 #### Velocity Context Sources
-- A model of the currently open Java or Kotlin class file
+- A [model](jvmclass/index.html) of the currently open Java or Kotlin class file
 - A model of a selected Java or Kotlin class file
 - A reference to the currently open [project][project] in the IDE
 - A reference to a map of current environment variables retrieved from Java's ```System.getenv()```
