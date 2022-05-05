@@ -22,7 +22,7 @@
 
 ### Use
 #### Task Creation
-New tasks are created in settings under File -> Settings -> Tools -> codeCreator -> Tasks. The left list pane displays tasks. The '+' button create a new task, the '-' button deletes the currently selected task, and the wrench button has a dropdown for importing or exporting tasks. To the right of the list pane is a text box for the task's name and tabs for setting Sources and Templates.
+New tasks are created in settings under File -> Settings -> Tools -> codeCreator -> Tasks. The left list pane displays tasks. The '+' button creates a new task, the '-' button deletes the currently selected task, and the wrench button has a dropdown for importing or exporting tasks. To the right of the list pane is a text box for the task's name and tabs for setting Sources and Templates.
 
 Create a new task by clicking the '+' button and give it a unique name. The name is what displays in the IntelliJ/Android Studio Generate list. 
 
