@@ -4,8 +4,8 @@
 
 ### Current Features
 #### Velocity Context Sources
-- A [model](jvmclass/index.html) of the currently open Java or Kotlin class file
-- A model of a selected Java or Kotlin class file
+- A [model][jvmclassPackageSummary] of the currently open Java or Kotlin class file
+- A [model][jvmclassPackageSummary] of a selected Java or Kotlin class file
 - A reference to the currently open [project][project] in the IDE
 - A reference to a map of current environment variables retrieved from Java's ```System.getenv()```
 - The tools provided by [Velocity Generic Tools][velocityTools]
@@ -44,10 +44,10 @@ A container for Source(s) and Template(s) to be run with the IntelliJ/Android St
 
 #### Sources
 ##### Current Java/Kotlin File
-This is the open java or kotlin file with focus when triggering the Generate... command. 
+This is the open java or kotlin file with focus when triggering the Generate... command. Javadoc [here][jvmclassPackageSummary]
 
 ##### Selected Java/Kotlin File
-This displays a prompt so other project or library class files can be selected.
+This displays a prompt so other project or library class files can be selected. Javadoc [here][jvmclassPackageSummary]
 
 ##### Other Context Sources
 As noted [above][#velocity-context-sources], the following additional sources are available in your Velocity templates
@@ -126,7 +126,7 @@ codeCreator uses the Velocity library included with IntelliJ/Android Studio, whi
 - Current Java/Kotlin file
 
 
-
+[jvmclassPackageSummary]: jvmclass/dev/warrengates/codecreator/source/jvmclass/package-summary.html
 [intellij]: https://www.jetbrains.com/idea/
 [androidStudio]: https://developer.android.com/studio/
 [project]: https://github.com/JetBrains/intellij-community/blob/3a43e28a7925ba02ab4d8bd8131a22c0d8a54dfd/platform/core-api/src/com/intellij/openapi/project/Project.java
