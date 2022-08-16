@@ -1,27 +1,28 @@
-## codeCreator
+# codeCreator
 
 [codeCreator](https://plugins.jetbrains.com/plugin/19097-codecreator) is a general purpose code generator plugin for JetBrains [IntelliJ IDEA][intellij] and [Android Studio][androidStudio] IDEs. It allows for the creation of a code generation task that has one or more [sources](#velocity-context-sources) that can be used in one or more [templates](#velocity-template-sources), with each template having its own output. One example would be to create multiple Thymeleaf files from a Java class.
 
-### Current Features
-#### Velocity Context Sources
-- A [model][jvmclassPackageSummary] of the currently open Java or Kotlin class file
-- A [model][jvmclassPackageSummary] of a selected Java or Kotlin class file
+## Current Features
+### Velocity Context Sources
+- [Database metadata](#database-metadata) from a connected JDBC database
+- A [model](#current-javakotlin-file) of the currently open Java or Kotlin class file
+- A [model](#selected-javakotlin-file) of a selected Java or Kotlin class file
 - A reference to the currently open [project][project] in the IDE
 - A reference to a map of current environment variables retrieved from Java's ```System.getenv()```
-- The tools provided by [Velocity Generic Tools][velocityTools]
+- The tools provided by [Velocity Generic Tools](#other-context-sources)
 - The predefined [variables][templateVariables] provided for IntelliJ's File and Code Templates
 
-#### Velocity Template Sources
+### Velocity Template Sources
 - String templates added through codeCreator's settings page
 - Templates from files
 
-#### Output Targets
+### Output Targets
 - File(s), either by prompting for a file name or by using a template generated file name/path
 - The Clipboard
 
 
-### Use
-#### Task Creation
+## Use
+### Task Creation
 New tasks are created in settings under File -> Settings -> Tools -> codeCreator -> Tasks. The left list pane displays tasks. The '+' button creates a new task, the '-' button deletes the currently selected task, and the wrench button has a dropdown for importing or exporting tasks. To the right of the list pane is a text box for the task's name and tabs for setting Sources and Templates.
 
 Create a new task by clicking the '+' button and give it a unique name. The name is what displays in the IntelliJ/Android Studio Generate list. 
@@ -34,22 +35,91 @@ String Templates allow you to set a Name, Template text, and Output. For String 
 
 To use a Velocity Template you must configure at least one additional ResourceLoader in the codeCreator Properties page under File -> Settings -> Tools -> codeCreator. See [below][#velocity-settings] for more information. Once an additional ResourceLoader is configured you can set Resource Name and Output. Resource Name must match an existing resource that your additional ResourceLoader can find, such as a file name for a configured FileResourceLoader.
 
-#### Running Tasks
+### Running Tasks
 Tasks are added to and are run from the IntelliJ/Android Studio Generate... command which is accessed from Code -> Generate... or by hitting Alt-Insert.
 
-### Reference
+## Reference
 
-#### Tasks
+### Tasks
 A container for Source(s) and Template(s) to be run with the IntelliJ/Android Studio Generate... command. Tasks are context aware, and only show up when they are runnable. As example: a Task with a Current Java/Kotlin File source won't be an option if Generate... is triggered in a text file.
 
-#### Sources
-##### Current Java/Kotlin File
+### Sources
+#### Database Metadata
+This connects to a specified database and provides a [wrapper][databaseMetadata] around Java's [DatabaseMetaData][jdkMetadata] interface. 
+
+Quick start:
+- Add appropriate driver jar under Drivers (IntelliJ Settings -> Tools -> codeCreator -> Drivers tab)
+- Optionally add a saved connection (you can also configure your task to prompt for connection info)
+- Review [Better-Metadata][databaseMetadata] api for usage in velocity template
+- Create task as described above and add Database Metadata as a Source
+- See below for important notes regarding [Drivers](#drivers) and [Connections](#connections)
+
+The database metadata source editor allows you to choose the velocity variable name, pick either a stored or prompted connection, and filter on catalog and schema. The catalog and schema filters act as defaults on the [Database](https://warren-gates.github.io/better-metadata/javadoc/dev/warrengates/bettermetadata/Database.html) object and apply to any of its filterable method calls unless overridden. The catalog/schema filters work as follows:
+
+- Unchecked: no filtering
+- Checked with empty textbox: retrieves items without catalog/schema
+- Checked with text in textbox: retrieves items matching specified catalog/schema. Note that the text must match an existing catalog, there is no wildcard matching. Schema can use wildcard matching, where '%' matches and substring of zero or more characters, and '_' matches any single character. See details at the top of the [DatabaseMetaData page][jdkMetadata].
+
+Examples using schema only (applies similarly to catalog): 
+Variable name: `db`
+
+schema filter unchecked
+```java
+db.getTables() // retrieves all tables in database available to logged in user
+```
+
+schema filters checked with blank textbox
+```java
+db.getTables() // retrieves all tables without schema in database available to logged in user
+```
+
+
+schema filters checked with textbox = 'public'
+```java
+db.getTables() // retrieves all tables where schema equals 'public' in database available to logged in user
+
+// note that the default filter can be overridden if schema is passed to getTables method with signature
+// getTables(String catalog, String schemaPattern, String tableNamePattern, Array<String> types)
+db.getTables(null, "otherSchema", null, null) // retrieves all tables where schema equals 'otherSchema' in database available to logged in user
+```
+
+
+
+
+##### Drivers
+Drivers can be added by choosing a jar file on your local filesystem or by downloading from Maven Central. 
+
+To add a local jar click the add button on the list under the Drivers tab (Settings -> Tools -> codeCreator), choose a name, and browse to the jar file you wish to add. Once a jar file is selected and classes that implement the java.sql.Driver interface will show in the Driver Class dropdown. If necessary, select the appropriate class. Click Apply or OK to save the driver information.
+
+If you want to download a driver, you MUST set and apply the Local repo path first. An existing Maven repository path can be used. Once the local repo path is set, you can add a driver using the From Repository option. This differs from the local jar instruction above by asking for download coordinates instead of a file path. The coordinates are in the Maven format of
+
+```maven
+groupID:artifactId:verson
+```
+
+using MariaDB version 3.07 as an example would give coordinates of
+
+```maven
+org.mariadb.jdbc:mariadb-java-client:3.0.7
+```
+An easy way to get the correct coordinates is to copy them from [mvnrepository.com](https://mvnrepository.com/). If you have selected an existing local Maven repository for the local repo path, that repository will be checked to see if a driver jar matching the coordinates already exists. If it does the Download button will be disabled and a message displayed indicating that a match was found locally. Otherwise, click the Download button to download the driver jar from Maven Central. Once downloaded the Driver Class dropdown will be populated as noted above. Select the desired driver class and save.
+
+IMPORTANT DRIVER NOTES
+- Set and Apply Local repo path before downloading drivers
+- Note that drivers are downloaded from Maven Central, an option to use other remote repositories will be added shortly
+- You will need to choose the correct driver class (if multiples exist). Refer to the specific driver's documentation to pick the correct class
+
+##### Connections
+To create a stored connection, go to Settings -> Tools -> codeCreator -> Connections tab. Click the add button, enter a name, choose a Driver, enter a URL, and optionally a username and password. Passwords are stored using IntelliJ's [Sensitive Data API][sensitiveData]. As an alternative to a stored connection, during task creation you can specify a connection prompt each time the task is run. 
+
+
+#### Current Java/Kotlin File
 This is the open java or kotlin file with focus when triggering the Generate... command. Javadoc [here][jvmclassPackageSummary]
 
-##### Selected Java/Kotlin File
+#### Selected Java/Kotlin File
 This displays a prompt so other project or library class files can be selected. Javadoc [here][jvmclassPackageSummary]
 
-##### Other Context Sources
+#### Other Context Sources
 As noted [above][#velocity-context-sources], the following additional sources are available in your Velocity templates
 
 The predefined [variables][templateVariables] provided for IntelliJ's File and Code Templates
@@ -73,21 +143,21 @@ and the following
 
 
 
-#### Templates
-##### String Template
+### Templates
+#### String Template
 Stores the Velocity template text directly
 
-##### Velocity Template
+#### Velocity Template
 Refers to an external template resource such as a file. Requires that an additional ResourceLoader be [configured][#velocity-settings].
 
-#### Output
-##### Clipboard
+### Output
+#### Clipboard
 Template output is copied to clipboard.
 
-##### Selected File
+#### Selected File
 A file selection prompt is display so output can be saved to a file.
 
-##### File Name Template
+#### File Name Template
 Allows a file path to be defined as a Velocity template using any of the Sources available, including Task Sources and the [sources][#velocity-context-sources] listed above.  As an example, consider a template that creates a Thymeleaf html page for a specified Java class. Assuming a class named Person with a Source Variable Name of 'class0' in a project located at '/home/warren/myprojects/webproject', the following File Name Template
 ```velocity
 $project.basePath/src/resources/templates/$class0.name/create.html
@@ -99,7 +169,7 @@ would give an output path of
 
 File Name Templates has a selection how to handle existing files: Prompt for new name, Overwrite existing file, or Cancel operation. Note that currently Templates are processed sequentially, so it is possible when multiple Templates are used with File Name Templates output with the Cancel option that the first Template processed may save successfully while a subsequent Template may cancel due to an existing file.
 
-#### Velocity Settings
+### Velocity Settings
 Additional velocity settings can be specified under File -> Settings -> Tools -> codeCreator using property file syntax. This allows you to add additional ResourceLoaders and specify other Velocity runtime configuration. See the Velocity [reference][velocityConfiguration] for specifics. An example of adding a FileResourceLoader would be
 ```
 resource.loader = file
@@ -110,19 +180,18 @@ file.resource.loader.cache = false
 file.resource.loader.modificationCheckInterval = 0
 ```
 
-#### Velocity Library used
+### Velocity Library used
 codeCreator uses the Velocity library included with IntelliJ/Android Studio, which currently is version 1.7.  For writing templates refer to the [documentation][velocityTemplateReference].
 
-### Roadmap
-#### Additional Velocity Context Sources
-- [Database metadata][databaseMetadata]
+## Roadmap
+### Additional Velocity Context Sources
 - Other files such as xml, json, csv
 - Value(s) collected from a user prompt
 
-#### Additional Velocity Template Sources
+### Additional Velocity Template Sources
 - Built in IntelliJ templates
 
-#### Additional Output Targes
+### Additional Output Targes
 - Current Java/Kotlin file
 
 
@@ -146,3 +215,5 @@ codeCreator uses the Velocity library included with IntelliJ/Android Studio, whi
 [list]: https://velocity.apache.org/tools/1.4/javadoc/org/apache/velocity/tools/generic/ListTool.html
 [sorter]: https://velocity.apache.org/tools/1.4/javadoc/org/apache/velocity/tools/generic/SortTool.html
 [mill]: https://velocity.apache.org/tools/1.4/javadoc/org/apache/velocity/tools/generic/IteratorTool.html
+[jdkMetadata]: https://docs.oracle.com/en/java/javase/17/docs/api/java.sql/java/sql/DatabaseMetaData.html
+[sensitiveData]: https://plugins.jetbrains.com/docs/intellij/persisting-sensitive-data.html
