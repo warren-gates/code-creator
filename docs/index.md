@@ -50,7 +50,7 @@ This connects to a specified database and provides a [wrapper][databaseMetadata]
 Quick start:
 - Add appropriate driver jar under Drivers (IntelliJ Settings -> Tools -> codeCreator -> Drivers tab)
 - Optionally add a saved connection (you can also configure your task to prompt for connection info)
-- Review [Better-Metadata][databaseMetadata] api for usage in velocity template
+- Review [better-metadata][databaseMetadata] api for usage in velocity template
 - Create task as described above and add Database Metadata as a Source
 - See below for important notes regarding [Drivers](#drivers) and [Connections](#connections)
 
@@ -73,7 +73,6 @@ schema filters checked with blank textbox
 db.getTables() // retrieves all tables without schema in database available to logged in user
 ```
 
-
 schema filters checked with textbox = 'public'
 ```java
 db.getTables() // retrieves all tables where schema equals 'public' in database available to logged in user
@@ -83,6 +82,16 @@ db.getTables() // retrieves all tables where schema equals 'public' in database 
 db.getTables(null, "otherSchema", null, null) // retrieves all tables where schema equals 'otherSchema' in database available to logged in user
 ```
 
+Currently there is no user interface for filtering of database objects such as tables or procedures. Filters can applied in method calls, with most relevant methods including a signature that just takes a name pattern, using the wildcard rules noted above. As an example:
+```java
+db.getTables("employee%") // would return tables named 'employee', 'employeetype', etc.
+db.getTables("employee") // would only return a table named 'employee', if it exists
+```
+
+IMPORTANT DATABASE METADATA NOTES
+- This is a wrapper around the Java [DatabaseMetaData][jdkMetadata] interface and provides no additional error handling. If a call to DatabaseMetaData throws an exception then this wrapper will throw the same exception.
+- The returned metadata will be limited by the logged in user's permissions
+- Not every database driver handles every request correctly. During testing I found that the MariaDB driver returns schema information from the `getCatalogs()` method. Unexpected results may very well be coming from the underlying driver.
 
 
 
@@ -135,7 +144,7 @@ and the following
 | [Render tool][render] | render |
 | [Escape tool][esc] | esc |
 | [Resource tool][text] | text |
-| Alternator tool | alternator |
+| [Alternator tool][alternator] | alternator |
 | [Value Parser][parser] | parser |
 | [List tool][list] | list |
 | [Sort tool][sorter] | sorter |
@@ -211,6 +220,7 @@ codeCreator uses the Velocity library included with IntelliJ/Android Studio, whi
 [render]: https://velocity.apache.org/tools/1.4/generic/RenderTool.html
 [esc]: https://velocity.apache.org/tools/1.4/generic/EscapeTool.html
 [text]: https://velocity.apache.org/tools/1.4/javadoc/org/apache/velocity/tools/generic/ResourceTool.html
+[alternator]: https://velocity.apache.org/tools/1.4/javadoc/org/apache/velocity/tools/generic/AlternatorTool.html
 [parser]: https://velocity.apache.org/tools/1.4/javadoc/org/apache/velocity/tools/generic/ValueParser.html
 [list]: https://velocity.apache.org/tools/1.4/javadoc/org/apache/velocity/tools/generic/ListTool.html
 [sorter]: https://velocity.apache.org/tools/1.4/javadoc/org/apache/velocity/tools/generic/SortTool.html
