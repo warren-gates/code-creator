@@ -33,7 +33,7 @@ Switch to the Templates tab and add a new Template using the '+' button. Current
 
 String Templates allow you to set a Name, Template text, and Output. For String Templates the Name is only used for display in the Templates list. The Template text box takes your Velocity template text, and Output specifies the desired output target.
 
-To use a Velocity Template you must configure at least one additional ResourceLoader in the codeCreator Properties page under File -> Settings -> Tools -> codeCreator. See [below][#velocity-settings] for more information. Once an additional ResourceLoader is configured you can set Resource Name and Output. Resource Name must match an existing resource that your additional ResourceLoader can find, such as a file name for a configured FileResourceLoader.
+To use a Velocity Template you must configure at least one additional ResourceLoader in the codeCreator Properties page under File -> Settings -> Tools -> codeCreator. See [below](#velocity-settings) for more information. Once an additional ResourceLoader is configured you can set Resource Name and Output. Resource Name must match an existing resource that your additional ResourceLoader can find, such as a file name for a configured FileResourceLoader.
 
 ### Running Tasks
 Tasks are added to and are run from the IntelliJ/Android Studio Generate... command which is accessed from Code -> Generate... or by hitting Alt-Insert.
@@ -129,7 +129,7 @@ This is the open java or kotlin file with focus when triggering the Generate... 
 This displays a prompt so other project or library class files can be selected. Javadoc [here][jvmclassPackageSummary]
 
 #### Other Context Sources
-As noted [above][#velocity-context-sources], the following additional sources are available in your Velocity templates
+As noted [above](#velocity-context-sources), the following additional sources are available in your Velocity templates
 
 The predefined [variables][templateVariables] provided for IntelliJ's File and Code Templates
 and the following
@@ -157,7 +157,7 @@ and the following
 Stores the Velocity template text directly
 
 #### Velocity Template
-Refers to an external template resource such as a file. Requires that an additional ResourceLoader be [configured][#velocity-settings].
+Refers to an external template resource such as a file. Requires that an additional ResourceLoader be [configured](#velocity-settings).
 
 ### Output
 #### Clipboard
