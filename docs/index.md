@@ -157,7 +157,7 @@ and the following
 Stores the Velocity template text directly
 
 #### Velocity Template
-Refers to an external template resource such as a file. Requires that an additional ResourceLoader be [configured](#velocity-settings).
+Refers to an external template file resource. Requires that an additional ResourceLoader be [configured](#velocity-settings). When using an external file, the Resource Name specified in the settings dialog is the path of the file relative to the resource loader path specified in the [Velocity Properties](#velocity-settings). As an example, assuming the Velocity Properties shown below, for a template file whose full path is '/path/to/your/template/directory/sometemplate.vm', the Resource Name would be 'sometemplate.vm'. In other words, the resource loader path specified in Velocity Properties is concatenated with the Resource Name in the Velocity Template editor to get the full path to the template file.
 
 ### Output
 #### Clipboard
@@ -179,7 +179,7 @@ would give an output path of
 File Name Templates has a selection how to handle existing files: Prompt for new name, Overwrite existing file, or Cancel operation. Note that currently Templates are processed sequentially, so it is possible when multiple Templates are used with File Name Templates output with the Cancel option that the first Template processed may save successfully while a subsequent Template may cancel due to an existing file.
 
 ### Velocity Settings
-Additional velocity settings can be specified under File -> Settings -> Tools -> codeCreator using property file syntax. This allows you to add additional ResourceLoaders and specify other Velocity runtime configuration. See the Velocity [reference][velocityConfiguration] for specifics. An example of adding a FileResourceLoader would be
+Additional velocity settings can be specified under File -> Settings -> Tools -> codeCreator, Velocity Properties using property file syntax. This allows you to add additional ResourceLoaders and specify other Velocity runtime configuration. See the Velocity [reference][velocityConfiguration] for specifics. An example of adding a FileResourceLoader would be
 ```
 resource.loader = file
 file.resource.loader.description = Velocity File Resource Loader
