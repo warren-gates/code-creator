@@ -167,7 +167,7 @@ Template output is copied to clipboard.
 A file selection prompt is display so output can be saved to a file.
 
 #### File Name Template
-Allows a file path to be defined as a Velocity template using any of the Sources available, including Task Sources and the [sources][#velocity-context-sources] listed above.  As an example, consider a template that creates a Thymeleaf html page for a specified Java class. Assuming a class named Person with a Source Variable Name of 'class0' in a project located at '/home/warren/myprojects/webproject', the following File Name Template
+Allows a file path to be defined as a Velocity template using any of the Sources available, including Task Sources and the [sources](#velocity-context-sources) listed above.  As an example, consider a template that creates a Thymeleaf html page for a specified Java class. Assuming a class named Person with a Source Variable Name of 'class0' in a project located at '/home/warren/myprojects/webproject', the following File Name Template
 ```velocity
 $project.basePath/src/resources/templates/$class0.name/create.html
 ```
