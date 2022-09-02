@@ -2,6 +2,10 @@
 
 [codeCreator](https://plugins.jetbrains.com/plugin/19097-codecreator) is a general purpose code generator plugin for JetBrains [IntelliJ IDEA][intellij] and [Android Studio][androidStudio] IDEs. It allows for the creation of a code generation task that has one or more [sources](#velocity-context-sources) that can be used in one or more [templates](#velocity-template-sources), with each template having its own output. One example would be to create multiple Thymeleaf files from a Java class.
 
+## Latest Additions
+- Ability to [use](#intellij-includes-templates) IntelliJ's 'Includes' templates
+
+
 ## Current Features
 ### Velocity Context Sources
 - [Database metadata](#database-metadata) from a connected JDBC database
@@ -128,6 +132,21 @@ This is the open java or kotlin file with focus when triggering the Generate... 
 #### Selected Java/Kotlin File
 This displays a prompt so other project or library class files can be selected. Javadoc [here][jvmclassPackageSummary]
 
+#### IntelliJ Includes templates
+You can now use templates defined in Settings -> Editor -> File and Code Templates, Includes by adding an `#parse` or `#include` statement in your existing templates. Using the existing "File Header" template as example:
+
+If your "File Header" contains its own velocity template language, such as ${USER}, you would include it in a codeCreator template with the `#parse` statement
+```
+#parse("File Header")
+```
+
+if your "File Header" does not contain any velocity template language, it would be included in a codeCreator template with the `#include` statement
+```
+#include("File Header")
+```
+
+Not that individual IntelliJ Includes templates will not be loaded if their name conflicts with an existing codeCreator context source.  For more details on the `#include` and `#parse` statements see the [Velocity Documentation][indludeStatement].
+
 #### Other Context Sources
 As noted [above](#velocity-context-sources), the following additional sources are available in your Velocity templates
 
@@ -227,3 +246,4 @@ codeCreator uses the Velocity library included with IntelliJ/Android Studio, whi
 [mill]: https://velocity.apache.org/tools/1.4/javadoc/org/apache/velocity/tools/generic/IteratorTool.html
 [jdkMetadata]: https://docs.oracle.com/en/java/javase/17/docs/api/java.sql/java/sql/DatabaseMetaData.html
 [sensitiveData]: https://plugins.jetbrains.com/docs/intellij/persisting-sensitive-data.html
+[indludeStatement]: https://velocity.apache.org/engine/1.7/user-guide.html#include
