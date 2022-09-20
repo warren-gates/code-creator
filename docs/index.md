@@ -3,7 +3,8 @@
 [codeCreator](https://plugins.jetbrains.com/plugin/19097-codecreator) is a general purpose code generator plugin for JetBrains [IntelliJ IDEA][intellij] and [Android Studio][androidStudio] IDEs. It allows for the creation of a code generation task that has one or more [sources](#velocity-context-sources) that can be used in one or more [templates](#velocity-template-sources), with each template having its own output. One example would be to create multiple Thymeleaf files from a Java class.
 
 ## Latest Additions
-- Ability to [use](#intellij-includes-templates) IntelliJ's 'Includes' templates
+- [Current method](#current-method) as template source
+- [Caret location](#caret) as output target
 
 
 ## Current Features
@@ -19,10 +20,12 @@
 ### Velocity Template Sources
 - String templates added through codeCreator's settings page
 - Templates from files
+- IntelliJ Include templates
 
 ### Output Targets
 - File(s), either by prompting for a file name or by using a template generated file name/path
 - The Clipboard
+- Caret
 
 
 ## Use
@@ -147,6 +150,9 @@ if your "File Header" does not contain any velocity template language, it would 
 
 Not that individual IntelliJ Includes templates will not be loaded if their name conflicts with an existing codeCreator context source.  For more details on the `#include` and `#parse` statements see the [Velocity Documentation][indludeStatement].
 
+#### Current Method
+The [method][methodInfo] that contains the caret. 
+
 #### Other Context Sources
 As noted [above](#velocity-context-sources), the following additional sources are available in your Velocity templates
 
@@ -196,6 +202,9 @@ would give an output path of
 ```
 
 File Name Templates has a selection how to handle existing files: Prompt for new name, Overwrite existing file, or Cancel operation. Note that currently Templates are processed sequentially, so it is possible when multiple Templates are used with File Name Templates output with the Cancel option that the first Template processed may save successfully while a subsequent Template may cancel due to an existing file.
+
+#### Caret
+Template output is placed at current caret location. If an area is selected it will be replaced by the template output.
 
 ### Velocity Settings
 Additional velocity settings can be specified under File -> Settings -> Tools -> codeCreator, Velocity Properties using property file syntax. This allows you to add additional ResourceLoaders and specify other Velocity runtime configuration. See the Velocity [reference][velocityConfiguration] for specifics. An example of adding a FileResourceLoader would be
@@ -247,3 +256,4 @@ codeCreator uses the Velocity library included with IntelliJ/Android Studio, whi
 [jdkMetadata]: https://docs.oracle.com/en/java/javase/17/docs/api/java.sql/java/sql/DatabaseMetaData.html
 [sensitiveData]: https://plugins.jetbrains.com/docs/intellij/persisting-sensitive-data.html
 [indludeStatement]: https://velocity.apache.org/engine/1.7/user-guide.html#include
+[methodInfo]: jvmclass/dev/warrengates/codecreator/source/jvmclass/MethodInfo.html
