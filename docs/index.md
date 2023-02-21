@@ -228,7 +228,7 @@ codeCreator uses the Velocity library included with IntelliJ/Android Studio, whi
 ### Additional Velocity Template Sources
 - Built in IntelliJ templates
 
-### Additional Output Targes
+### Additional Output Targets
 - Current Java/Kotlin file
 
 
@@ -239,7 +239,7 @@ codeCreator uses the Velocity library included with IntelliJ/Android Studio, whi
 [velocityTools]: https://velocity.apache.org/tools/1.4/generic/index.html
 [templateVariables]: https://www.jetbrains.com/help/idea/file-template-variables.html
 [databaseMetadata]: https://warren-gates.github.io/better-metadata/
-[velocityVariableNaming]: https://velocity.apache.org/engine/1.7/user-guide.html#variables
+[velocityVariableNaming]: https://velocity.apache.org/engine/1.7/user-guide.html#variableshttps://warren-gates.github.io/codeCreator/
 [velocityTemplateReference]: https://velocity.apache.org/engine/1.7/developer-guide.html#velocity-configuration-keys-and-values
 [velocityConfiguration]: https://velocity.apache.org/engine/1.7/developer-guide.html#velocity-configuration-keys-and-values
 [date]: https://velocity.apache.org/tools/1.4/javadoc/org/apache/velocity/tools/generic/DateTool.html
